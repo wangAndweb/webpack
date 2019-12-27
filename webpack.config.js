@@ -38,10 +38,16 @@ module.exports = {
         }
       },
       {
-        test:  /\.vue$/,
-        use: {
-          loader: 'vue-loader'
-        }
+        test:  /\.scss$/,
+        use: ['style-loader', {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2, // 对scss文件里面的scss使用前两个loader
+            modules: true
+          }
+        }, 'sass-loader', 'postcss-loader']
+        // css-loader 分析css-loader关系，生成对应的css
+        // style-loader 负责在对应页面挂载css
       }
     ]
   }
