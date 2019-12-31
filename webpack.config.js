@@ -31,23 +31,48 @@ module.exports = {
           // 2.处理后赋予一个名字，返回到引用的变量
           options: {
             name: '[name]_[hash].[ext]',
-            outputPath: 'images/',
+            outputPath: 'images/', // 相对于output path路径设置
             limit: 20480
           }
           // option为个性化配置
         }
       },
       {
-        test:  /\.scss$/,
-        use: ['style-loader', {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 2, // 对scss文件里面的scss使用前两个loader
-            modules: true
-          }
-        }, 'sass-loader', 'postcss-loader']
+        test:  /\.css$/,
+        use: [
+          { loader: 'style-loader', options: { attributes: {
+            id: 'id',
+            insert: 'body'
+          } } },
+          { loader: 'css-loader' },
+        ]
         // css-loader 分析css-loader关系，生成对应的css
         // style-loader 负责在对应页面挂载css
+      },
+      {
+        test:  /\.(eot|ttf|svg|woff|woff2)$/,
+        use: {
+          loader: 'file-loader',
+          // 1.首先把文件移动到dist你目录下
+          // 2.处理后赋予一个名字，返回到引用的变量
+          options: {
+            name: '[name]_[hash].[ext]',
+            outputPath: 'font/'
+          }
+          // option为个性化配置
+        }
+      },
+      {
+        test:  /\.(csv|tsv)$/,
+        use: {
+          loader: 'csv-loader'
+        }
+      },
+      {
+        test:  /\.xml$/,
+        use: {
+          loader: 'xml-loader'
+        }
       }
     ]
   }
