@@ -5,16 +5,26 @@
 // 配置在package.json里面 =》 npm run bundle => webpack
 // webpack-cli 为在命令行中调用webpack
 // 默认支持打包js
+// loader => 不同文件的打包
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ManifestPlugin =  require('webpack-manifest-plugin');
+// htmlWebpackPlugin 会在打包结束后自动生成一个html文件
+// 打包生成的js自动引入到html中
+// plugin 可以再webpack运行到一个特定的时刻干一件事情
 module.exports = {
   mode: 'development', // 打包模式，会警告，如果不设置，默认生产环境
+  context: path.resolve(__dirname, 'src'),
   entry: {
-    main: './src/index.js'
+    app: './index.js',
+    print: './print.js'
   },
   // 简写形式：=》 entry: './src/index.js', // 可以配置多文件入口，数组格式
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, 'dist')
+    filename: "[name].js",
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: "https://www.baidu.com/" // 配置CDN地址
     // 所有输出文件的目标路径
     // __dirname 代表webpack.config.js所在的目录的绝对路径
     // 必须是绝对路径 Node path模块下的__dirname代表当前根目录 ，bundle代表当前目录下的文件夹名称
@@ -75,5 +85,10 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [new HtmlWebpackPlugin({
+    template: './index.html',
+    title: 'Output Management',
+    filename: 'index.html'
+  }), new CleanWebpackPlugin(), new ManifestPlugin()]
 };
