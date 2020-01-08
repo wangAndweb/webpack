@@ -5,10 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "bundle": "webpack",
-    "watch": "webpack --watch",
-    "start": "webpack-dev-server",
-    "server": "node server.js"
+    "start": "webpack-dev-server --open --color"
   },
   "repository": {
     "type": "git",
@@ -39,5 +36,8 @@
     "webpack-dev-server": "^3.10.1",
     "webpack-manifest-plugin": "^2.2.0",
     "xml-loader": "^1.2.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
   }
 }
