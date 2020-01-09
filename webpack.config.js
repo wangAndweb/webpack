@@ -42,8 +42,7 @@ module.exports = {
   },
   // 模块打包配置文件，告诉指定类型文件通过loader来处理成模块, 针对非js文件
   // 如果引入的文件不是js，首先想到用loader来处理
-  // 小型轿车 别克牌SGM7133LBA1
-  module: {
+  module: { // 遇到一些不识别的文件类型如何处理
     rules: [
       {
         test: /\.js$/,
