@@ -1,9 +1,5 @@
-import "@babel/polyfill";
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-class App extends Component {
-  render() {
-    return <div>Hello World</div>
-  }
-}
-ReactDOM.render(document.getElementById("root"), App);
+// Tree shaking 只支持 ES Module模块引入
+
+import { add } from './main';
+add(1, 2);
+

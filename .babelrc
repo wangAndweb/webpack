@@ -3,7 +3,10 @@
     [
       "@babel/preset-env",
       {
-        "useBuiltIns": "usage"
+        "useBuiltIns": "usage",
+        "targets": {
+          "chrome": "67"
+        }
       }
     ],
     "@babel/preset-react"

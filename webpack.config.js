@@ -16,7 +16,7 @@ const webpack = require('webpack');
 // plugin 可以再webpack运行到一个特定的时刻干一件事情
 module.exports = {
   mode: 'development', // 打包模式，会警告，如果不设置，默认生产环境
-  devtool: 'inline-source-map', // sourceMap关闭, sourceMap是映射关系，他知道打包后文件每行代码对应src文件对应文件第几行
+  devtool: 'cheap-module-source-map', // sourceMap关闭, sourceMap是映射关系，他知道打包后文件每行代码对应src文件对应文件第几行
   // 推荐建议 dev =》 cheap-module-eval-source-map pro => cheap-module-source-map
   // cheap为只精确到行 inline为集合到行内文件
   context: path.resolve(__dirname, 'src'),
@@ -117,5 +117,8 @@ module.exports = {
   plugins: [new HtmlWebpackPlugin({
     template: './index.html',
     title: 'Development'
-  }), new CleanWebpackPlugin(), new webpack.HotModuleReplacementPlugin()]
+  }), new CleanWebpackPlugin(), new webpack.HotModuleReplacementPlugin()],
+  optimization: {
+    usedExports: true // 只打包有引入的内容
+  }
 };
