@@ -100,5 +100,11 @@ module.exports = {
   // 如果引入的文件不是js，首先想到用loader来处理
   plugins: [new HtmlWebpackPlugin({
     template: './index.html'
-  }), new CleanWebpackPlugin()]
+  }), new CleanWebpackPlugin()],
+  // 代码分割
+  optimization: {
+    splitChunks: {
+      chunks: "all"
+    }
+  }
 };
