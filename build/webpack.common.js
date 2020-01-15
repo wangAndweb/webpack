@@ -15,7 +15,8 @@ module.exports = {
   },
   // 简写形式：=》 entry: './src/index.js', // 可以配置多文件入口，数组格式
   output: {
-    filename: "[name].bundle.js",
+    filename: "[name].js",
+    chunkFilename: '[name].js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: './'
     // publicPath: '/' 确保提供正确的文件路径
@@ -104,7 +105,23 @@ module.exports = {
   // 代码分割
   optimization: {
     splitChunks: {
-      chunks: "all"
+      chunks: "all" // async只对异步代码进行分割    all对所有代码进行分割 chunks和vendors配合使用
+      // minSize: 30000,
+      // minChunks: 2, // 引用几次才做分割
+      // maxAsyncRequests: 5,
+      // maxInitialRequests: 3,
+      // automaticNameDelimiter: '_',
+      // name: true,
+      // cacheGroups: {
+      //   vendors: {
+      //     test: /[\\/]node_modules[\\/]/,
+      //     priority: -10   // 设置优先级，数值越大，优先级越高
+      //   },
+      //   default: {
+      //     priority: -20,
+      //     reuseExistingChunk: true // 如果模块被打包过，则忽略，直接使用打包过的模块
+      //   }
+      // }
     }
   }
 };

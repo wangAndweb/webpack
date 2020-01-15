@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // htmlWebpackPlugin 会在打包结束后自动生成一个html文件
 // 打包生成的js自动引入到html中
 // plugin 可以再webpack运行到一个特定的时刻干一件事情
@@ -17,7 +18,7 @@ const devConfig= {
   },
   // 模块打包配置文件，告诉指定类型文件通过loader来处理成模块, 针对非js文件
   // 如果引入的文件不是js，首先想到用loader来处理
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [new webpack.HotModuleReplacementPlugin()/*, new BundleAnalyzerPlugin()*/],
   optimization: {
     usedExports: true // 只打包有引入的内容
   }
