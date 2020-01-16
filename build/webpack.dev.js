@@ -16,6 +16,10 @@ const devConfig= {
     port: 8091,
     hot: true // 开启hot module replace功能, 主要是为了保留原来的页面,方便调试页面 ，原则上需要写module.hot代码编写，用到accept方法，
   },
+  output: {
+    filename: "[name].js", // 入口文件
+    chunkFilename: "[name].chunk.js", // 间接引入
+  },
   // 模块打包配置文件，告诉指定类型文件通过loader来处理成模块, 针对非js文件
   // 如果引入的文件不是js，首先想到用loader来处理
   plugins: [new webpack.HotModuleReplacementPlugin()/*, new BundleAnalyzerPlugin()*/],

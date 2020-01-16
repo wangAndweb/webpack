@@ -15,8 +15,6 @@ module.exports = {
   },
   // 简写形式：=》 entry: './src/index.js', // 可以配置多文件入口，数组格式
   output: {
-    filename: "[name].js", // 入口文件
-    chunkFilename: "[name].chunk.js", // 间接引入
     path: path.resolve(__dirname, '../dist'),
     publicPath: './'
     // publicPath: '/' 确保提供正确的文件路径
@@ -73,6 +71,7 @@ module.exports = {
       }
     ]
   },
+  performance: false,
   // 模块打包配置文件，告诉指定类型文件通过loader来处理成模块, 针对非js文件
   // 如果引入的文件不是js，首先想到用loader来处理
   plugins: [new HtmlWebpackPlugin({
@@ -80,9 +79,20 @@ module.exports = {
   }), new CleanWebpackPlugin()],
   // 代码分割
   optimization: {
+    // manifest 业务代码和库之间的关联逻辑
+    runtimeChunk: {
+      name: 'runtime'
+    },
     usedExports: true, // 只打包有引入的内容
     splitChunks: {
-      chunks: "all" // async只对异步代码进行分割    all对所有代码进行分割 chunks和vendors配合使用
+      chunks: "all", // async只对异步代码进行分割    all对所有代码进行分割 chunks和vendors配合使用
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          name: 'vendors'
+        }
+      }
       // minSize: 30000,
       // minChunks: 2, // 引用几次才做分割
       // maxAsyncRequests: 5,
