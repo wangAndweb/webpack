@@ -5,7 +5,8 @@
 // 2 修改业务代码，用户重新加载文件，重新加载很大的文件
 // 业务代码
 // 同步引入
-import _ from 'lodash';
+// import _ from 'lodash';
+// import module from './test';
 // import $ from 'jquery';
 // import test from './test';
 // console.log(_.join(['a', 'd', 'c'], '***'));
@@ -18,18 +19,21 @@ import _ from 'lodash';
 // Code Splitting 代码分割
 
 //异步引入
-async function getComponent() {
-  const _ = await import(/* webpackChunkName: "lodash" */ 'lodash');
-  const element = document.createElement("div");
-  element.innerHTML = _.join(['DELL', 'JOHN'], '-');
-  return element;
-}
-
-document.addEventListener('click', () => {
-  getComponent().then( element => {
-    document.body.appendChild(element);
-  });
-});
+// async function getComponent() {
+//   const _ = await import(/* webpackChunkName: "lodash" */ 'lodash');
+//   const element = document.createElement("div");
+//   element.innerHTML = _.join(['DELL', 'JOHN'], '-');
+//   return element;
+// }
+//
+// document.addEventListener('click', () => {
+//   // getComponent().then( element => {
+//   //   //   document.body.appendChild(element);
+//   //   // });
+//   import(/* webpackPrefetch: true */ './click').then(({ default: func}) => {
+//     func();
+//   })
+// });
 
 
 // 代码分割和webpack无关
@@ -37,4 +41,31 @@ document.addEventListener('click', () => {
 // 1.同步代码分割：只需要在webpack中做optimization的配置
 // 2.异步代码分割： import 异步引入 无需做配置，会自动进行代码分割
 // test();
+// function component() {
+//   var element = document.createElement('div');
+//   var button = document.createElement('button');
+//   var br = document.createElement('br');
+//   button.innerHTML = 'Click me and look at the console!';
+//   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+//   element.appendChild(br);
+//   element.appendChild(button);
+//   button.onclick = () => import(/* webpackChunkName: "test" */ './test').then(module => {
+//     var print = module.default;
+//     print();
+//   });
+//   return element;
+// }
+// document.body.appendChild(component());
+// function component() {
+//   const element = document.createElement('div');
+//   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+//   element.onclick = module.default();
+//   console.log('开始运行')
+//   return element;
+// }
+//
+// document.body.appendChild(component());
+import './styles.css';
+import './style1.css';
+console.log('Hello world');
 

@@ -15,8 +15,8 @@ module.exports = {
   },
   // 简写形式：=》 entry: './src/index.js', // 可以配置多文件入口，数组格式
   output: {
-    filename: "[name].js",
-    chunkFilename: '[name].js',
+    filename: "[name].js", // 入口文件
+    chunkFilename: "[name].chunk.js", // 间接引入
     path: path.resolve(__dirname, '../dist'),
     publicPath: './'
     // publicPath: '/' 确保提供正确的文件路径
@@ -33,7 +33,7 @@ module.exports = {
         loader: "babel-loader"
       },
       {
-        test:  /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif)$/,
         use: {
           loader: 'url-loader',
           // 1.首先把文件移动到dist你目录下
@@ -45,30 +45,6 @@ module.exports = {
           }
           // option为个性化配置
         }
-      },
-      {
-        test:  /\.css$/,
-        use: [
-          { loader: 'style-loader', options: { attributes: {
-                id: 'id',
-                insert: 'body'
-              } } },
-          { loader: 'css-loader' }, 'postcss-loader'
-        ]
-        // css-loader 分析css-loader关系，生成对应的css
-        // style-loader 负责在对应页面挂载css
-      },
-      {
-        test:  /\.scss$/,
-        use: [
-          { loader: 'style-loader', options: { attributes: {
-                id: 'id',
-                insert: 'body'
-              } } },
-          'css-loader', 'sass-loader', 'postcss-loader'
-        ]
-        // css-loader 分析css-loader关系，生成对应的css
-        // style-loader 负责在对应页面挂载css
       },
       {
         test:  /\.(eot|ttf|svg|woff|woff2)$/,
@@ -104,6 +80,7 @@ module.exports = {
   }), new CleanWebpackPlugin()],
   // 代码分割
   optimization: {
+    usedExports: true, // 只打包有引入的内容
     splitChunks: {
       chunks: "all" // async只对异步代码进行分割    all对所有代码进行分割 chunks和vendors配合使用
       // minSize: 30000,

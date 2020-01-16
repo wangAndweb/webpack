@@ -19,8 +19,33 @@ const devConfig= {
   // 模块打包配置文件，告诉指定类型文件通过loader来处理成模块, 针对非js文件
   // 如果引入的文件不是js，首先想到用loader来处理
   plugins: [new webpack.HotModuleReplacementPlugin()/*, new BundleAnalyzerPlugin()*/],
-  optimization: {
-    usedExports: true // 只打包有引入的内容
+  module: { // 遇到一些不识别的文件类型如何处理
+    rules: [
+      {
+        test:  /\.css$/,
+        use: [
+          { loader: 'style-loader', options: { attributes: {
+                id: 'id',
+                insert: 'body'
+              } } },
+          { loader: 'css-loader' }, 'postcss-loader'
+        ]
+        // css-loader 分析css-loader关系，生成对应的css
+        // style-loader 负责在对应页面挂载css
+      },
+      {
+        test:  /\.scss$/,
+        use: [
+          { loader: 'style-loader', options: { attributes: {
+                id: 'id',
+                insert: 'body'
+              } } },
+          'css-loader', 'sass-loader', 'postcss-loader'
+        ]
+        // css-loader 分析css-loader关系，生成对应的css
+        // style-loader 负责在对应页面挂载css
+      }
+    ]
   }
 };
 module.exports = merge(commonConfig, devConfig);

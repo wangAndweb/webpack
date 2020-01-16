@@ -1,3 +1,4 @@
-export default function test () {
-  console.log('aaaaaa');
+export default () => {
+  console.log('Button Clicked: Here\'s "some text"!');
+  console.log('添加了一行');
 }
