@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const prodConfig = {
   mode: 'production', // 打包模式，会警告，如果不设置，默认生产环境
   // devtool: 'cheap-module-source-map', // sourceMap关闭, sourceMap是映射关系，他知道打包后文件每行代码对应src文件对应文件第几行
@@ -53,6 +54,10 @@ const prodConfig = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[name].chunk.css'
+    }),
+    new WorkboxPlugin.GenerateSW({ //PWA优化
+      clientsClaim: true, //
+      skipWaiting: true
     })
   ]
 

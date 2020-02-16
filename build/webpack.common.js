@@ -6,10 +6,10 @@
 // webpack-cli 为在命令行中调用webpack
 // 默认支持打包js
 // loader => 不同文件的打包
+// PWD技术为本地缓存页面
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack');
 const devConfig = require('./webpack.dev');
 const prodConfig = require('./webpack.prod');
 const merge = require('webpack-merge');
@@ -33,8 +33,8 @@ const commConfig = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
-          { loader: "babel-loader" },
-          { loader: "imports-loader?this=>window" }
+          { loader: "babel-loader" }
+          // { loader: 'imports-loader?this=>window'} // this指向window
         ]
       },
       {
@@ -85,11 +85,7 @@ const commConfig = {
     new HtmlWebpackPlugin({
       template: './index.html'
     }),
-    new CleanWebpackPlugin(),
-    new webpack.ProvidePlugin({ // 可以理解成垫片
-      $: 'jquery',    // 发现模块中有$字符串，会在模块中自动引入jquery，并且赋值给$
-      _: 'lodash'
-    })
+    new CleanWebpackPlugin()
   ],
   // 代码分割
   optimization: {

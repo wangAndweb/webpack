@@ -5,9 +5,9 @@
 // 2 修改业务代码，用户重新加载文件，重新加载很大的文件
 // 业务代码
 // 同步引入
-import _ from 'lodash';
+// import _ from 'lodash';
 // import module from './test';
-import $ from 'jquery';
+// import $ from 'jquery';
 // import test from './test';
 // console.log(_.join(['a', 'd', 'c'], '***'));
 // // 统一省略10万行
@@ -68,7 +68,20 @@ import $ from 'jquery';
 // import './styles.css';
 // import './style1.css';
 // console.log('Hello world');
-const dom = $('div');
-dom.html(_.join(['Dell', 'Lee'], '--'));
-$('body').append(dom);
-this.alert('测试！！');
+// const dom = $('div');
+// dom.html(_.join(['Dell', 'Lee'], '--'));
+// $('body').append(dom);
+// this.alert('测试！！');
+console.log('this is dell');
+
+if ('serviceWorker' in navigator) { // PWA访问过一次以后缓存住
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(('./service-worker.js')).
+    then( registion => {
+      console.log('成功')
+    }).then(err => {
+      console.log(err);
+    })
+  })
+  // 首先在webpack中配置service-worker
+}
